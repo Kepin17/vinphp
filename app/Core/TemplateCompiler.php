@@ -16,9 +16,13 @@ namespace App\Core;
  *   @slot($var) ... @endslot -> captures the HTML between them into $var,
  *     for passing rendered content into a component as a prop (React-children style)
  *
- * No compiled-file cache: re-parses on every render. Fine for a starter's
- * traffic; ponytail: add filesystem caching keyed by mtime if this ever
- * shows up in a profile.
+ * View::render() memoizes compiled output per file for the lifetime of the
+ * PHP process (see its static $compiled cache) — a view is parsed once per
+ * process, not once per render call, so a loop calling the same component
+ * many times only pays the parse cost once. No cross-request/disk cache
+ * though: under `php -S` every request is a fresh process anyway, and under
+ * php-fpm a worker only sees a view's latest content on its next recycle —
+ * fine for a starter's traffic and dev workflow.
  */
 class TemplateCompiler
 {

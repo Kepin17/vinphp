@@ -15,7 +15,22 @@ A route with no match returns 404 and renders `app/Views/pages/404.php`
 ## Adding a page
 
 1. Generate a controller: `php make controller Post` → `app/Controllers/PostController.php`.
-2. Create the view: `app/Views/pages/post.php`.
+2. Create the view: `app/Views/pages/post.php`. Build the page's body, then
+   hand it to the layout with `@Main(...)` (it auto-resolves to
+   `templates/main.php` like any other component — see
+   [templating.md](templating.md#calling-components)):
+   ```blade
+   @php
+   ob_start();
+   @endphp
+   <p>Post content here.</p>
+   @php
+   $content = ob_get_clean();
+   @endphp
+   @Main(['title' => 'Post', 'content' => $content])
+   ```
+   `appName` is optional — `templates/main.php` defaults it to
+   `config('app_name')` if you don't pass one.
 3. Register the route as above.
 
 Routes are matched by exact path only — no `{param}` placeholders yet. Add

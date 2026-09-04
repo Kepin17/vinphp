@@ -1,9 +1,6 @@
+@props(string $title, string $appName = '', string $content = '')
 @php
-/**
- * @var string $title
- * @var string $appName
- * @var string $content  Rendered inner HTML for the page slot.
- */
+$appName = $appName !== '' ? $appName : config('app_name');
 @endphp
 <!doctype html>
 <html lang="en">

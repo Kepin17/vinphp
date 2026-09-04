@@ -21,8 +21,10 @@ class View
             throw new \RuntimeException("View not found: {$view}");
         }
 
-        $compiled = TemplateCompiler::compile(file_get_contents($file));
-        eval('?>' . $compiled);
+        static $compiled = [];
+        $compiled[$file] ??= TemplateCompiler::compile(file_get_contents($file));
+
+        eval('?>' . $compiled[$file]);
     }
 
     /**

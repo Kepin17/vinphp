@@ -92,9 +92,13 @@ for the convention and the (rarely-needed) override escape hatch.
 `View::render()` reads the raw view file, runs it through
 `TemplateCompiler::compile()`, and `eval()`s the result. That means:
 
-- **No compile cache.** It re-parses the view on every render. Fine for a
-  starter's traffic — add filesystem caching keyed by file mtime if this
-  ever shows up in a profiler.
+- **Compiled per-process, not per-render.** `View::render()` memoizes the
+  compiled output per file path in a static array, so rendering the same
+  component 50 times in a loop parses it once. There's no cross-request/disk
+  cache: `php -S` gets a fresh process per request anyway, and a php-fpm
+  worker only picks up an edited view on its next recycle. Fine for a
+  starter's traffic and dev workflow — add filesystem caching keyed by file
+  mtime if this ever needs to survive worker recycles too.
 - **`__DIR__` / `__FILE__` inside a view point at `View.php`, not the view
   file itself** (an `eval()` quirk). Never build paths with them in a view —
   use `ROOT_PATH` (defined in `public/index.php`) or the `config()` helper
