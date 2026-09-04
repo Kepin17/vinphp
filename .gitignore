@@ -1,0 +1,7 @@
+/node_modules
+/vendor
+/public/assets/css/app.css
+/public/assets/js/htmx.min.js
+.DS_Store
+.env
+/vscode-extension/*.vsix

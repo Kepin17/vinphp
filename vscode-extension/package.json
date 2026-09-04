@@ -1,0 +1,26 @@
+{
+    "name": "vinphp-snippets",
+    "displayName": "VinPHP Snippets",
+    "description": "Component and directive snippets for the VinPHP starter — @Component calls, @if/@foreach/@props/@slot, and helper functions (config, icon, csrf_field, redirect, Request, routes).",
+    "version": "0.0.1",
+    "publisher": "vinphp",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "php",
+                "path": "./snippets/php.json"
+            }
+        ],
+        "configurationDefaults": {
+            "[php]": {
+                "editor.snippetSuggestions": "top"
+            }
+        }
+    }
+}

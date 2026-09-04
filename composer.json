@@ -1,0 +1,14 @@
+{
+    "name": "vinphp/vinphp",
+    "description": "Plain PHP starter — elements/fragments views, Blade-style templating, no framework.",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}

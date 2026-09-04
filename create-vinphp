@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+# Scaffold a new project from this VinPHP starter.
+#
+# Usage: ./create-vinphp <path-to-new-project>
+#   ./create-vinphp ../my-app
+#
+set -euo pipefail
+
+TARGET="${1:-}"
+
+if [ -z "$TARGET" ]; then
+    echo "Usage: ./create-vinphp <path-to-new-project>"
+    exit 1
+fi
+
+if [ -e "$TARGET" ]; then
+    echo "Error: '$TARGET' already exists."
+    exit 1
+fi
+
+if ! command -v rsync >/dev/null 2>&1; then
+    echo "Error: rsync is required."
+    exit 1
+fi
+
+SOURCE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+mkdir -p "$TARGET"
+
+rsync -a \
+    --exclude='.git' \
+    --exclude='node_modules' \
+    --exclude='vendor' \
+    --exclude='.env' \
+    --exclude='public/assets/css/app.css' \
+    --exclude='public/assets/js/htmx.min.js' \
+    --exclude='vscode-extension/*.vsix' \
+    --exclude='.claude' \
+    "$SOURCE"/ "$TARGET"/
+
+cd "$TARGET"
+cp .env.example .env
+
+if command -v composer >/dev/null 2>&1; then
+    echo "Installing PHP dependencies (composer install)..."
+    composer install --quiet
+else
+    echo "Skipping composer install (composer not found on PATH) — run it yourself later."
+fi
+
+echo "Installing dependencies (npm install)..."
+npm install --silent
+
+echo "Building assets..."
+npm run build:css --silent
+npm run build:js --silent
+
+echo ""
+echo "Created new VinPHP project at: $TARGET"
+echo ""
+echo "Next steps:"
+echo "  cd $TARGET"
+echo "  \$EDITOR .env               # set APP_NAME, DB_*"
+echo "  php -S localhost:8000 -t public"
+echo ""
+echo "(Or point your own nginx/Apache vhost at $TARGET/public.)"

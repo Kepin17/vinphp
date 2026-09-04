@@ -1,0 +1,193 @@
+{
+    "Button": {
+        "prefix": [
+            "Button",
+            "@Button"
+        ],
+        "body": "@Button(['label' => '$1', 'variant' => '${2|primary,secondary|}'${3:, 'href' => '$4'}])$0",
+        "description": "Insert a Button component call"
+    },
+    "Button (submit)": {
+        "prefix": [
+            "ButtonSubmit",
+            "@ButtonSubmit"
+        ],
+        "body": "@Button(['label' => '$1', 'variant' => '${2|primary,secondary|}', 'type' => 'submit'])$0",
+        "description": "Insert a Button component call as a form submit button"
+    },
+    "Card": {
+        "prefix": [
+            "Card",
+            "@Card"
+        ],
+        "body": "@Card(['title' => '$1', 'description' => '$2'])$0",
+        "description": "Insert a Card component call"
+    },
+    "Heading": {
+        "prefix": [
+            "Heading",
+            "@Heading"
+        ],
+        "body": "@Heading(['text' => '$1', 'level' => '${2|h1,h2,h3|}'])$0",
+        "description": "Insert a Heading component call"
+    },
+    "Input": {
+        "prefix": [
+            "Input",
+            "@Input"
+        ],
+        "body": "@Input(['name' => '$1', 'type' => '${2|text,email,password|}', 'placeholder' => '$3'])$0",
+        "description": "Insert an Input component call"
+    },
+    "FormField": {
+        "prefix": [
+            "FormField",
+            "@FormField"
+        ],
+        "body": [
+            "@FormField([",
+            "    'label' => '$1',",
+            "    'name' => '$2',",
+            "    'type' => '${3|text,email,password|}',",
+            "    'placeholder' => '$4',",
+            "    'hint' => '$5',",
+            "])$0"
+        ],
+        "description": "Insert a FormField component call"
+    },
+    "Badge (new component template)": {
+        "prefix": "MakeComponent",
+        "body": [
+            "@props(string \\$${1:text})",
+            "<span class=\"$2\">{{ \\$${1:text} }}</span>"
+        ],
+        "description": "Starter body for a new element/fragment view file"
+    },
+    "if": {
+        "prefix": "@if",
+        "body": "@if($1)\n    $0\n@endif",
+        "description": "Blade-style if block"
+    },
+    "if/else": {
+        "prefix": "@ifelse",
+        "body": "@if($1)\n    $2\n@else\n    $0\n@endif",
+        "description": "Blade-style if/else block"
+    },
+    "foreach": {
+        "prefix": "@foreach",
+        "body": "@foreach(\\$${1:items} as \\$${2:item})\n    $0\n@endforeach",
+        "description": "Blade-style foreach loop"
+    },
+    "php block": {
+        "prefix": "@php",
+        "body": "@php\n$0\n@endphp",
+        "description": "Raw PHP block"
+    },
+    "props": {
+        "prefix": "@props",
+        "body": "@props($0)",
+        "description": "Declare component props with defaults"
+    },
+    "slot": {
+        "prefix": "@slot",
+        "body": "@slot(\\$$1)\n    $0\n@endslot",
+        "description": "Capture HTML into a variable (children/slot)"
+    },
+    "echo escaped": {
+        "prefix": "{{",
+        "body": "{{ \\$$1 }}$0",
+        "description": "Escaped output"
+    },
+    "echo raw": {
+        "prefix": "{!!",
+        "body": "{!! \\$$1 !!}$0",
+        "description": "Raw (unescaped) output"
+    },
+    "Footer (auto)": {
+        "prefix": [
+            "Footer",
+            "@Footer"
+        ],
+        "body": "@Footer([$1])$0",
+        "description": "Insert a Footer component call (auto-generated from fragments/footer.php)"
+    },
+    "Navbar (auto)": {
+        "prefix": [
+            "Navbar",
+            "@Navbar"
+        ],
+        "body": "@Navbar([$1])$0",
+        "description": "Insert a Navbar component call (auto-generated from fragments/navbar.php)"
+    },
+    "Main (auto)": {
+        "prefix": [
+            "Main",
+            "@Main"
+        ],
+        "body": "@Main([$1])$0",
+        "description": "Insert a Main component call (auto-generated from templates/main.php)"
+    },
+    "for": {
+        "prefix": "@for",
+        "body": "@for(\\$${1:i} = 0; \\$${1:i} < ${2:10}; \\$${1:i}++)\n    $0\n@endfor",
+        "description": "Blade-style for loop"
+    },
+    "while": {
+        "prefix": "@while",
+        "body": "@while($1)\n    $0\n@endwhile",
+        "description": "Blade-style while loop"
+    },
+    "config": {
+        "prefix": "config",
+        "body": "config('$1')$0",
+        "description": "Read a value from app/Config/config.php"
+    },
+    "icon": {
+        "prefix": "icon",
+        "body": "{!! icon('$1', ['class' => '$2']) !!}$0",
+        "description": "Render a Lucide icon (raw SVG)"
+    },
+    "csrf": {
+        "prefix": [
+            "csrf",
+            "@csrf"
+        ],
+        "body": "{!! csrf_field() !!}$0",
+        "description": "Hidden CSRF token input for a <form method=\"post\">"
+    },
+    "redirect": {
+        "prefix": "redirect",
+        "body": "redirect('$1');$0",
+        "description": "Redirect (Location header) and exit"
+    },
+    "Request post": {
+        "prefix": "ReqPost",
+        "body": "\\App\\Core\\Request::post('$1')$0",
+        "description": "Read a $_POST value via App\\Core\\Request"
+    },
+    "Request get": {
+        "prefix": "ReqGet",
+        "body": "\\App\\Core\\Request::get('$1')$0",
+        "description": "Read a $_GET value via App\\Core\\Request"
+    },
+    "route get": {
+        "prefix": "routeGet",
+        "body": "\\$router->get('$1', [new ${2:Controller}(), '${3:index}']);$0",
+        "description": "Register a GET route in routes/web.php"
+    },
+    "route post": {
+        "prefix": "routePost",
+        "body": "\\$router->post('$1', [new ${2:Controller}(), '${3:store}']);$0",
+        "description": "Register a POST route in routes/web.php"
+    },
+    "form (post + csrf)": {
+        "prefix": "form",
+        "body": [
+            "<form method=\"post\" action=\"$1\">",
+            "    {!! csrf_field() !!}",
+            "    $0",
+            "</form>"
+        ],
+        "description": "A POST form with the CSRF field already wired in"
+    }
+}
